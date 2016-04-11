@@ -1,11 +1,16 @@
 package com.craigburke
 
 
-import org.joda.time.DateTime
-import org.joda.time.Instant
 
 import grails.converters.JSON
+
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+
+import org.joda.time.DateTime
+import org.joda.time.Instant
 
 class EventController {
     def eventService
@@ -15,7 +20,10 @@ class EventController {
     }
 
     def list = {
-        def (startRange, endRange) = [params.long('start'), params.long('end')].collect { new Instant(it  * 1000L).toDate() }
+        def (startRange, endRange) = [ params['start'], params['end'] ].collect {
+			def d = LocalDate.parse( it,  DateTimeFormatter.ISO_LOCAL_DATE)
+			Date.from( d.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+			}
 
         def events = Event.withCriteria {
             or {

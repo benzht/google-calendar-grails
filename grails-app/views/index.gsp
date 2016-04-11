@@ -4,14 +4,6 @@
     <meta name="layout" content="main"/>
     <title>Welcome to Grails</title>
 
-    <asset:link rel="icon" href="favicon.ico" type="image/x-ico" />
-    <asset:javascript src="calendar.js"/>
-	<asset:stylesheet href="calendar.css"/>
-    <asset:javascript src="fullcalendar.js"/>
-	<asset:stylesheet href="fullcalendar.css"/>
-    <r:require module="calendar" />
-    <r:require module="fullCalendar" />
-
 
 </head>
 <body>
@@ -82,7 +74,6 @@
             </div>
         </section>
     </div>
-  <div id="calendar"></div>
 
 </body>
 </html>
