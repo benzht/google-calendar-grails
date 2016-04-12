@@ -2,6 +2,7 @@
 //= require jquery.qtip.css
 //= require jquery.qtip.js
 //= require fullcalendar.js
+//= require lang/en-ie.js
 //= require moment.js
 $("#calendar").fullCalendar({
         events: 'list.json',
