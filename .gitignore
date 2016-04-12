@@ -1,21 +1,17 @@
-*.iws
-*Db.properties
-*Db.script
-.settings
-stacktrace.log
-/*.zip
-/plugin.xml
-/*.log
-/*DB.*
-/cobertura.ser
-.DS_Store
-/target/
-/out/
-/web-app/plugins
-/web-app/WEB-INF/classes
-/.link_to_grails_plugins/
-/target-eclipse/
-/.idea/
-*.iml
-*.ipr
-/build/
+.gradle
+build/
+it/caches
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Cache of project
+.gradletasknamecache
+
+# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
+# gradle/wrapper/gradle-wrapper.properties
+bin
+/.asscache
