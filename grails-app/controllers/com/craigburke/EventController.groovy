@@ -7,6 +7,7 @@ import grails.converters.JSON
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 import org.joda.time.DateTime
@@ -130,8 +131,11 @@ class EventController {
     }
 
     def edit = {
-        def eventInstance = Event.get(params.id)
-        def (occurrenceStart, occurrenceEnd) = [params.long('occurrenceStart'), params.long('occurrenceEnd')]
+ 		println "params=${params}"
+		def eventInstance = Event.get(params.id)
+        def (occurrenceStart, occurrenceEnd) = [
+				ZonedDateTime.parse(params['occurrenceStart']),
+				ZonedDateTime.parse(params['occurrenceEnd'])]
 
         if (!eventInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'event.label', default: 'Event'), params.id])}"
