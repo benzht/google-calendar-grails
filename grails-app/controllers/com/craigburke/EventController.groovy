@@ -95,19 +95,9 @@ class EventController {
 
     def show = {
         def eventInstance = Event.get(params.id)
-		println "params=${params}"
-		println "p.occStart = ${params['occurrenceStart']} ${params['occurrenceStart'].class}"
-		println "eventInstance = ${eventInstance}"
+
         def occurrenceStart = params.long('occurrenceStart') ?: new Instant(eventInstance?.startTime)
         def occurrenceEnd = params.long('occurrenceEnd') ?: new Instant(eventInstance?.endTime)
-//        def occurrenceStart = new Instant( (params['occuranceStart'] ?: eventInstance?.startTime) )
-//        def occurrenceEnd   = new Instant( (params['occurrenceEnd'] ?: eventInstance?.endTime) )
-//		ZonedDateTime.parse( params['occurrenceStart'],  DateTimeFormatter.ISO_ZONED_DATE_TIME)
-//								?: new Instant(eventInstance?.startTime)
-//        def occurrenceEnd = params['occurrenceEnd'] ? new Instant(params['occurrenceEnd']):
-//								new Instant(0)//new Instant(eventInstance?.endTime)
-		println "occurrenceStart=${occurrenceStart} ${occurrenceStart.class}"
-		println "occurrenceEnd=${occurrenceEnd} ${occurrenceEnd.class}"
 
         if (!eventInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'event.label', default: 'Event'), params.id])}"
