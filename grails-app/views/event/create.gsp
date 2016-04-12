@@ -4,35 +4,50 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'event.label', default: 'Event')}" />
         <title><g:message code="default.create.label" args="[entityName]" /></title>
+
+	    <asset:javascript src="calendar.js"/>
+		<asset:stylesheet href="calendar.css"/>
+
     </head>
     <body>
-        <a href="#create-event" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-        <div class="nav" role="navigation">
-            <ul>
-                <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-                <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-            </ul>
-        </div>
-        <div id="create-event" class="content scaffold-create" role="main">
-            <h1><g:message code="default.create.label" args="[entityName]" /></h1>
-            <g:if test="${flash.message}">
-            <div class="message" role="status">${flash.message}</div>
-            </g:if>
-            <g:hasErrors bean="${this.event}">
-            <ul class="errors" role="alert">
-                <g:eachError bean="${this.event}" var="error">
-                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-                </g:eachError>
-            </ul>
-            </g:hasErrors>
-            <g:form action="save">
-                <fieldset class="form">
-                    <f:all bean="event"/>
-                </fieldset>
-                <fieldset class="buttons">
-                    <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-                </fieldset>
-            </g:form>
-        </div>
-    </body>
+
+<div class="nav" role="navigation">
+    <ul>
+        <li><a href="${createLink(uri: '/')}" class="home">Home</a></li>
+        <li><g:link action="index" class="calendar">Calendar</g:link></li>
+        <li><g:link action="create" class="create">New Event</g:link></li>
+    </ul>
+</div>
+
+<div id="create-event" class="content scaffold-create" role="main">
+
+<h1><g:message code="default.create.label" args="[entityName]" /></h1>
+
+<g:if test="${flash.message}">
+    <div class="alert-message block-message info">${flash.message}</div>
+</g:if>
+
+<g:hasErrors bean="${eventInstance}">
+    <ul class="errors" role="alert">
+        <g:eachError bean="${eventInstance}" var="error">
+            <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message
+                    error="${error}"/></li>
+        </g:eachError>
+    </ul>
+</g:hasErrors>
+
+<g:form action="save" class="main" method="post" >
+
+    <fieldset class="form">
+        <g:render template="form" model="model" />
+    </fieldset>
+
+    <fieldset class="buttons">
+        <g:submitButton name="create" class="save">Save</g:submitButton>
+    </fieldset>
+
+</g:form>
+
+</div>
+</body>
 </html>

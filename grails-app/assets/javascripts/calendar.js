@@ -72,7 +72,8 @@ function renderCalendar() {
 
     function setupDatePickers() {
         $("input.datetime").datetimepicker({
-            ampm: true,
+        	dateFormat: "yy-mm-dd",
+            ampm: false,
             stepMinute: 15
         });
     }
