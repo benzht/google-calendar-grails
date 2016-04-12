@@ -54,7 +54,6 @@ dependencies {
     compile "org.hibernate:hibernate-ehcache"
     console "org.grails:grails-console"
 	compile 'joda-time:joda-time:2.9.3'
-	compile 'org.webjars.bower:fullcalendar:2.6.1'
     profile "org.grails.profiles:web:3.1.4"
     runtime "org.grails.plugins:asset-pipeline"
     runtime "com.h2database:h2"
@@ -69,6 +68,6 @@ task wrapper(type: Wrapper) {
 }
 
 assets {
-    minifyJs = true
-    minifyCss = true
+    minifyJs = false
+    minifyCss = false
 }

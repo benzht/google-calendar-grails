@@ -1,9 +1,9 @@
 //This is a javascript file with its top level require directives
-//= require jquery.qtip.css
-//= require jquery.qtip.js
-//= require fullcalendar.js
-//= require lang/en-ie.js
-//= require moment.js
+//= require jquery-2.2.3
+//= require moment
+//= require jquery.qtip
+//= require fullcalendar
+//= require lang/en-ie
 $("#calendar").fullCalendar({
         events: 'list.json',
         header: {

@@ -1,3 +1,7 @@
+/*
+*= require jquery.qtip
+*= require fullcalendar
+*/
 #calendar {
     padding: 20px;
 }
