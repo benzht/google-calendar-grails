@@ -37,8 +37,8 @@
             <span id="when-label" class="property-label">When</span>
 
             <span class="property-value" aria-labelledby="when-label">
-                <g:formatDate date="${new Instant(occurrenceStart).toDate()}" format="dd-MM-yyyy, HH:mm"/>  –
-                <g:formatDate date="${new Instant(occurrenceEnd).toDate()}" format="dd-MM-yyyy, HH:mm"/>
+                <g:formatDate date="${new Instant(occurrenceStart).toDate()}" format="dd-MM-yyyy HH:mm"/>  –
+                <g:formatDate date="${new Instant(occurrenceEnd).toDate()}" format="dd-MM-yyyy HH:mm"/>
             </span>
 
         </li>
