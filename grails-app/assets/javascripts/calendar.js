@@ -79,7 +79,7 @@ function renderCalendar() {
 
 
     function setupRecurSavePopups() {
-        $(".delete.recurring").live('click', function() {
+        $("body").on('click', ".delete.recurring", function() {
             $("#deletePopup").dialog({
                 title: "Delete recurring event",
                 width: 400,
