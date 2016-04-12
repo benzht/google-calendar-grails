@@ -27,6 +27,9 @@ class BootStrap {
             [MONDAY, WEDNESDAY, FRIDAY]*.toInteger().each { addToRecurDaysOfWeek(it) }
             addToExcludeDays(nextMonday.withTime(0, 0, 0, 0).toDate())
             isRecurring = true
+            description = '''This is the
+multi-line description of an 
+event'''
             save(flush: true)
         }
 
@@ -36,6 +39,7 @@ class BootStrap {
             endTime = nextMonday.plusHours(1).toDate()
             location = "New one-time location"
             isRecurring = false
+            description = "Description of the event of the new one-time location"
             save()
         }
 
@@ -44,6 +48,7 @@ class BootStrap {
             startTime = tomorrow.toDate()
             endTime = tomorrow.plusMinutes(30).toDate()
             isRecurring = false
+			description = 'This is the description of an event.'
             save()
         }
 
