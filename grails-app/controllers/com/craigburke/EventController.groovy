@@ -171,7 +171,7 @@ class EventController {
     def delete = {
         def eventInstance = Event.get(params.id)
 
-        EventRecurActionType deleteType = params.editType ? params.deleteType.toUpperCase() as EventRecurActionType : null
+        EventRecurActionType deleteType = params.deleteType ? params.deleteType.toUpperCase() as EventRecurActionType : null
         Date occurrenceStart = new Instant(params.long('occurrenceStart')).toDate()
 
         def result = eventService.deleteEvent(eventInstance, deleteType, occurrenceStart)
