@@ -1,4 +1,8 @@
 /*
+*= require jquery-ui.css
+*= require jquery-ui.structure.css
+*= require jquery-ui.theme.css
+*= require jquery-ui-timepicker-addon.css
 *= require jquery.qtip
 *= require fullcalendar
 */
