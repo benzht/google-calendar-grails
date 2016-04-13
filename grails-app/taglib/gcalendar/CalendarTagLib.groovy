@@ -1,12 +1,12 @@
 package gcalendar
 
-import static org.joda.time.DateTimeConstants.SUNDAY
+import static org.joda.time.DateTimeConstants.FRIDAY
 import static org.joda.time.DateTimeConstants.MONDAY
+import static org.joda.time.DateTimeConstants.SATURDAY
+import static org.joda.time.DateTimeConstants.SUNDAY
+import static org.joda.time.DateTimeConstants.THURSDAY
 import static org.joda.time.DateTimeConstants.TUESDAY
 import static org.joda.time.DateTimeConstants.WEDNESDAY
-import static org.joda.time.DateTimeConstants.THURSDAY
-import static org.joda.time.DateTimeConstants.FRIDAY
-import static org.joda.time.DateTimeConstants.SATURDAY
 
 
 class CalendarTagLib {
@@ -30,7 +30,9 @@ class CalendarTagLib {
             def id = "${name}_${index}"
 
             out << g.checkBox(name: name, id: id, value: day.key, checked: (selectedDays?.contains(day.key)), title: day.value)
-            out << "<label for='${id}'>${day.value[0..0]}</label>"
+            out << "&#8239;"
+            out << "<label for='${id}'>${day.value[0..2]}</label>"
+			out << "&nbsp;"
         }
     }
 
