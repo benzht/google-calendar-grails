@@ -1,40 +1,62 @@
+<%@ page import="gcalendar.Event" %>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'event.label', default: 'Event')}" />
         <title><g:message code="default.edit.label" args="[entityName]" /></title>
+
+	    <asset:javascript src="calendar.js"/>
+		<asset:stylesheet href="calendar.css"/>
     </head>
+
     <body>
         <a href="#edit-event" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
         <div class="nav" role="navigation">
             <ul>
                 <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-                <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+        		<li><g:link action="index" class="calendar">Calendar</g:link></li>
                 <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
             </ul>
         </div>
+
         <div id="edit-event" class="content scaffold-edit" role="main">
             <h1><g:message code="default.edit.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <g:hasErrors bean="${this.event}">
+            <g:hasErrors bean="${this.eventInstance}">
             <ul class="errors" role="alert">
-                <g:eachError bean="${this.event}" var="error">
+                <g:eachError bean="${this.eventInstance}" var="error">
                 <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
                 </g:eachError>
             </ul>
             </g:hasErrors>
-            <g:form resource="${this.event}" method="PUT">
-                <g:hiddenField name="version" value="${this.event?.version}" />
-                <fieldset class="form">
-                    <f:all bean="event"/>
-                </fieldset>
-                <fieldset class="buttons">
-                    <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />
-                </fieldset>
-            </g:form>
+
+    <g:form method="PUT" class="main" resource="${this.eventInstance}">
+        <g:hiddenField name="id" value="${eventInstance?.id}"/>
+        <g:hiddenField name="version" value="${eventInstance?.version}"/>
+        <g:hiddenField name="editType" value="" />
+
+        <fieldset class="form">
+            <g:render template="form"/>
+        </fieldset>
+        <fieldset class="buttons">
+
+            <g:actionSubmit class="save ${eventInstance.isRecurring ? 'recurring' : ''}" action="update"
+                            value="${message(code: 'default.button.update.label', default: 'Update')}"/>
+            <g:actionSubmit class="delete ${eventInstance.isRecurring ? 'recurring' : ''}" action="delete"
+                            value="${message(code: 'default.button.delete.label', default: 'Delete')}" formnovalidate="" />
+        </fieldset>
+    </g:form>
+
+    <g:if test="${eventInstance.isRecurring}">
+        <g:render template="deletePopup" model="model" />
+        <g:render template="editPopup" model="model" />
+    </g:if>
+
+
         </div>
     </body>
 </html>

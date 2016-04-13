@@ -14,7 +14,6 @@ import org.joda.time.DateTime
 import org.joda.time.Instant
 
 
-
 class EventController {
     def eventService
 
@@ -133,9 +132,9 @@ class EventController {
     def edit = {
  		println "params=${params}"
 		def eventInstance = Event.get(params.id)
-        def (occurrenceStart, occurrenceEnd) = [
-				ZonedDateTime.parse(params['occurrenceStart']),
-				ZonedDateTime.parse(params['occurrenceEnd'])]
+        def (occurrenceStart, occurrenceEnd) = [ params['occurrenceStart'], params['occurrenceEnd']].collect {
+															Date.from( ZonedDateTime.parse( it ).toInstant() )
+														}
 
         if (!eventInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'event.label', default: 'Event'), params.id])}"
