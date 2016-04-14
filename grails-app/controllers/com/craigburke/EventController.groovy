@@ -17,11 +17,10 @@ import org.joda.time.Instant
 class EventController {
     def eventService
 
-    def index = {
-
+    def index() {
     }
 
-    def list = {
+    def list() {
         def (startRange, endRange) = [ params['start'], params['end'] ].collect {
 			def d = LocalDate.parse( it,  DateTimeFormatter.ISO_LOCAL_DATE)
 			Date.from( d.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
@@ -85,7 +84,7 @@ class EventController {
         }
     }
 
-    def create = {
+    def create() {
         def eventInstance = new Event()
         eventInstance.properties = params
 
@@ -93,7 +92,7 @@ class EventController {
     }
 
 
-    def show = {
+    def show() {
         def eventInstance = Event.get(params.id)
 
         def occurrenceStart = params.long('occurrenceStart') ?: new Instant(eventInstance?.startTime)
@@ -116,7 +115,7 @@ class EventController {
 
     }
 
-    def save = {
+    def save() {
         def eventInstance = new Event(params)
 
         if (eventInstance.save(flush: true)) {
@@ -129,7 +128,7 @@ class EventController {
 
     }
 
-    def edit = {
+    def edit() {
  		println "params=${params}"
 		def eventInstance = Event.get(params.id)
         def (occurrenceStart, occurrenceEnd) = [ params['occurrenceStart'], params['occurrenceEnd']].collect {
@@ -146,7 +145,7 @@ class EventController {
 
     }
 
-    def update = {
+    def update() {
         def eventInstance = Event.get(params.id)
 
         EventRecurActionType editType = params.editType ? params.editType.toUpperCase() as EventRecurActionType : null
@@ -171,7 +170,7 @@ class EventController {
     }
 
 
-    def delete = {
+    def delete() {
         def eventInstance = Event.get(params.id)
 
         EventRecurActionType deleteType = params.deleteType ? params.deleteType.toUpperCase() as EventRecurActionType : null
