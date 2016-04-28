@@ -1,5 +1,6 @@
 package com.craigburke
 
+
 import org.joda.time.DateTime
 import org.joda.time.Minutes
 
@@ -36,7 +37,7 @@ class Event {
         excludeDays(nullable: true)
         startTime(required: true, nullable: false)
         endTime(required: true, nullable: false, validator: {val, obj -> val > obj.startTime} )
-        recurDaysOfWeek(validator: {val, obj -> 
+        recurDaysOfWeek(validator: {val, obj ->
             if (obj.recurType == EventRecurType.WEEKLY && !val) {return 'null'}
         })
     }
@@ -68,13 +69,13 @@ class Event {
 
            recurUntil = new DateTime(recurCountDate).plusMinutes(durationMinutes).toDate()
         }
-        
+
     }
 
     def beforeUpdate() {
         updateRecurringValues()
     }
-    
+
     def beforeInsert() {
         updateRecurringValues()
     }

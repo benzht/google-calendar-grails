@@ -1,20 +1,30 @@
 package com.craigburke
 
+
+
+import grails.converters.JSON
+
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+
 import org.joda.time.DateTime
 import org.joda.time.Instant
 
-import grails.converters.JSON
-import java.text.SimpleDateFormat
 
 class EventController {
     def eventService
 
-    def index = {
-
+    def index() {
     }
 
-    def list = {
-        def (startRange, endRange) = [params.long('start'), params.long('end')].collect { new Instant(it  * 1000L).toDate() }
+    def list() {
+        def (startRange, endRange) = [ params['start'], params['end'] ].collect {
+			def d = LocalDate.parse( it,  DateTimeFormatter.ISO_LOCAL_DATE)
+			Date.from( d.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+			}
 
         def events = Event.withCriteria {
             or {
@@ -74,7 +84,7 @@ class EventController {
         }
     }
 
-    def create = {
+    def create() {
         def eventInstance = new Event()
         eventInstance.properties = params
 
@@ -82,8 +92,9 @@ class EventController {
     }
 
 
-    def show = {
+    def show() {
         def eventInstance = Event.get(params.id)
+
         def occurrenceStart = params.long('occurrenceStart') ?: new Instant(eventInstance?.startTime)
         def occurrenceEnd = params.long('occurrenceEnd') ?: new Instant(eventInstance?.endTime)
 
@@ -104,7 +115,7 @@ class EventController {
 
     }
 
-    def save = {
+    def save() {
         def eventInstance = new Event(params)
 
         if (eventInstance.save(flush: true)) {
@@ -117,9 +128,12 @@ class EventController {
 
     }
 
-    def edit = {
-        def eventInstance = Event.get(params.id)
-        def (occurrenceStart, occurrenceEnd) = [params.long('occurrenceStart'), params.long('occurrenceEnd')]
+    def edit() {
+ 		println "params=${params}"
+		def eventInstance = Event.get(params.id)
+        def (occurrenceStart, occurrenceEnd) = [ params['occurrenceStart'], params['occurrenceEnd']].collect {
+															Date.from( ZonedDateTime.parse( it ).toInstant() )
+														}
 
         if (!eventInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'event.label', default: 'Event'), params.id])}"
@@ -131,7 +145,7 @@ class EventController {
 
     }
 
-    def update = {
+    def update() {
         def eventInstance = Event.get(params.id)
 
         EventRecurActionType editType = params.editType ? params.editType.toUpperCase() as EventRecurActionType : null
@@ -156,10 +170,10 @@ class EventController {
     }
 
 
-    def delete = {
+    def delete() {
         def eventInstance = Event.get(params.id)
 
-        EventRecurActionType deleteType = params.editType ? params.deleteType.toUpperCase() as EventRecurActionType : null
+        EventRecurActionType deleteType = params.deleteType ? params.deleteType.toUpperCase() as EventRecurActionType : null
         Date occurrenceStart = new Instant(params.long('occurrenceStart')).toDate()
 
         def result = eventService.deleteEvent(eventInstance, deleteType, occurrenceStart)
@@ -176,5 +190,5 @@ class EventController {
         }
     }
 
-    
+
 }

@@ -1,4 +1,4 @@
-<%@ page import="com.craigburke.Event" %>
+<%@ page import="gcalendar.Event" %>
 <%@ page import="org.joda.time.Instant" %>
 
 
@@ -9,7 +9,8 @@
     <g:set var="entityName" value="${message(code: 'event.label', default: 'Event')}"/>
     <title><g:message code="default.show.label" args="[entityName]"/></title>
 
-    <r:require module="calendar" />
+    <asset:javascript src="calendar.js"/>
+	<asset:stylesheet href="calendar.css"/>
 
 </head>
 
@@ -36,8 +37,8 @@
             <span id="when-label" class="property-label">When</span>
 
             <span class="property-value" aria-labelledby="when-label">
-                <g:formatDate date="${new Instant(occurrenceStart).toDate()}" format="E, MMM d, hh:mma"/>  –
-                <g:formatDate date="${new Instant(occurrenceEnd).toDate()}" format="E, MMM d, hh:mma"/>
+                <g:formatDate date="${new Instant(occurrenceStart).toDate()}" format="dd-MM-yyyy HH:mm"/>  –
+                <g:formatDate date="${new Instant(occurrenceEnd).toDate()}" format="dd-MM-yyyy HH:mm"/>
             </span>
 
         </li>

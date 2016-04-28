@@ -1,0 +1,39 @@
+/*
+*= require jquery-ui.css
+*= require jquery-ui.structure.css
+*= require jquery-ui.theme.css
+*= require jquery-ui-timepicker-addon.css
+*= require jquery.qtip
+*= require fullcalendar
+*/
+#calendar {
+    padding: 20px;
+}
+
+#calendar table {
+    margin-bottom: 0;
+}
+
+#calendar tr&gt;td:first-child, tr&gt;th:first-child {
+    padding-left: 0;
+}
+
+#calendar tr&gt;td:last-child, tr&gt;th:last-child {
+    padding-right: 0;
+}
+
+#calendar th:hover, tr:hover {
+    background: inherit;
+}
+
+#calendar tbody td:hover {
+    background: #E1F2B6;
+}
+
+#calendar table.fc-header {
+    border: none;
+}
+
+#calendar table.fc-header td:hover {
+    background: inherit;
+}

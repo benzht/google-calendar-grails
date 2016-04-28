@@ -1,14 +1,15 @@
-<%@ page import="com.craigburke.Event" %>
+<!DOCTYPE html>
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="layout" content="main" />
-    <g:set var="entityName" value="${message(code: 'event.label', default: 'Event')}" />
-    <title><g:message code="default.create.label" args="[entityName]" /></title>
+    <head>
+        <meta name="layout" content="main" />
+        <g:set var="entityName" value="${message(code: 'event.label', default: 'Event')}" />
+        <title><g:message code="default.create.label" args="[entityName]" /></title>
 
-    <r:require module="calendar" />
-</head>
-<body>
+	    <asset:javascript src="calendar.js"/>
+		<asset:stylesheet href="calendar.css"/>
+
+    </head>
+    <body>
 
 <div class="nav" role="navigation">
     <ul>
