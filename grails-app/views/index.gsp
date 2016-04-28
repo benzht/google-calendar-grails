@@ -1,45 +1,88 @@
 <!doctype html>
 <html>
-	<head>
-		<meta name="layout" content="main"/>
-		<title>Welcome to Grails</title>
-        <r:require module="home" />
-	</head>
-	<body>
-    <div class="nav" role="navigation">
-        <ul>
-            <li><a href="${createLink(uri: '/')}" class="home">Home</a></li>
-            <li><g:link class="calendar" controller="event" action="index">Calendar</g:link></li>
-            <li><g:link class="create" controller="event" action="create">New Event</g:link></li>
-        </ul>
+<head>
+    <meta name="layout" content="main"/>
+    <title>Welcome to Grails</title>
+
+    <asset:link rel="icon" href="favicon.ico" type="image/x-ico" />
+    <asset:javascript src="calendar.js"/>
+	<asset:stylesheet href="calendar.css"/>
+    <asset:javascript src="fullcalendar.js"/>
+	<asset:stylesheet href="fullcalendar.css"/>
+    <r:require module="calendar" />
+    <r:require module="fullCalendar" />
+
+
+</head>
+<body>
+    <content tag="nav">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Application Status <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Environment: ${grails.util.Environment.current.name}</a></li>
+                <li><a href="#">App profile: ${grailsApplication.config.grails?.profile}</a></li>
+                <li><a href="#">App version:
+                    <g:meta name="info.app.version"/></a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Grails version:
+                    <g:meta name="info.app.grailsVersion"/></a>
+                </li>
+                <li><a href="#">Groovy version: ${GroovySystem.getVersion()}</a></li>
+                <li><a href="#">JVM version: ${System.getProperty('java.version')}</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Reloading active: ${grails.util.Environment.reloadingAgentEnabled}</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Artefacts <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Controllers: ${grailsApplication.controllerClasses.size()}</a></li>
+                <li><a href="#">Domains: ${grailsApplication.domainClasses.size()}</a></li>
+                <li><a href="#">Services: ${grailsApplication.serviceClasses.size()}</a></li>
+                <li><a href="#">Tag Libraries: ${grailsApplication.tagLibClasses.size()}</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Installed Plugins <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
+                    <li><a href="#">${plugin.name} - ${plugin.version}</a></li>
+                </g:each>
+            </ul>
+        </li>
+    </content>
+
+    <div class="svg" role="presentation">
+        <div class="grails-logo-container">
+            <asset:image src="grails-cupsonly-logo-white.svg" class="grails-logo"/>
+        </div>
     </div>
 
-		<div id="page-body" role="main">
-			<h1>Google Calendar Grails Demo</h1>
-			
-            <h2>See the calendar in action</h2>
-            <p><g:link action="index" controller="event" >Calendar Demo</g:link>
-            
-            <h2>Read the blog</h2>
+    <div id="content" role="main">
+        <section class="row colset-2-its">
+            <h1>Welcome to Grails</h1>
+
             <p>
-            I detail how I created this calendar on my blog:
+                Congratulations, you have successfully started your first Grails application! At the moment
+                this is the default page, feel free to modify it to either redirect to a controller or display
+                whatever content you may choose. Below is a list of controllers that are currently deployed in
+                this application, click on each to execute its default action:
+            </p>
+
+            <div id="controllers" role="navigation">
+                <h2>Available Controllers:</h2>
                 <ul>
-                    <li><a href="http://www.craigburke.com/blog/2012/02/09/creating-google-calendar-in-grails-part-1-the-model/">Part 1: The Model</a></li>
-                    <li><a href="http://www.craigburke.com/blog/2012/02/16/creating-google-calendar-in-grails-part-2-displaying-the-calendar/">Part 2: Displaying the Calendar</a></li>
-                    <li><a href="http://www.craigburke.com/blog/2012/02/18/creating-google-calendar-in-grails-part-3-creating-and-modifying-events/">Part 3: Creating and Modifying Events</a></li>
-                </ul>    
-                
-            </p>
-            
+                    <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
+                        <li class="controller">
+                            <g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link>
+                        </li>
+                    </g:each>
+                </ul>
+            </div>
+        </section>
+    </div>
+  <div id="calendar"></div>
 
-            <h2>Check out the source</h2>
-            <p>
-                <a href="https://github.com/craigburke/google-calendar-grails">Google Calendar Grails on Github</a>
-
-            </p>
-
-            <span class="version">v<g:meta name="app.version"/></span>
-        </div>
-
-    </body>
+</body>
 </html>

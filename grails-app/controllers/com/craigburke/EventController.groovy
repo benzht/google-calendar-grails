@@ -1,5 +1,6 @@
 package com.craigburke
 
+
 import org.joda.time.DateTime
 import org.joda.time.Instant
 
@@ -176,5 +177,5 @@ class EventController {
         }
     }
 
-    
+
 }
